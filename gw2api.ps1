@@ -29,8 +29,19 @@ function Get-fromgw2api
     Begin
     {
     $baseapiurl = "https://api.guildwars2.com/v2/"
-    if ($endpoint -eq "prices") {$suffix = "commerce/prices"}
-    if ($ids -ne $null) {$parameter = "?ids=" + [system.string]::join(",",$ids)} 
+    switch ($endpoint)
+        {
+            "prices" {$suffix = "commerce/prices"}
+            "listings" {$suffix = "commerce/listings"}
+            "exchange" {$suffix = "commerce/exchange"}
+            "items" {$suffix = "items"}
+            "materials" {$suffix = "materials"}
+            "recipes" {$suffix = "recipes"}
+            "search-recipes" {$suffix = "recipes/search"}
+            "skins" {$suffix = "skins"}
+        }
+    if ($ids -ne $null) {$parameter = "?ids=" + [system.string]::join(",",$ids)}
+    if ($ids -eq $null) {$parameter = ""} 
     }
     Process
     {
